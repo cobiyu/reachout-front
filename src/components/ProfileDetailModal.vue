@@ -12,6 +12,8 @@
     </template>
     <template #default="{ hide }">
       <div class="container">
+
+
         <div class="row">
 
           <div class="col-md-4">
@@ -40,22 +42,79 @@
               </span>
             </div>
           </div>
+
         </div>
+
+
         <div class="row mt-2">
-          <div class="col-md-12">
+          <div class="col-md-12"  v-if="!isRequestMode">
             <div class="text-white font-bold text-2xl">About me</div>
             <div class="font-bold mt-2">I am, Jonathan Smith</div>
             <div >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar magna ut bibendum imperdiet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum id tempor libero. Praesent vel magna eget purus dignissim interdum. Sed efficitur malesuada dui, ac interdum ante scelerisque non. Curabitur quis euismod lorem, vel rutrum ante. Sed non vestibulum turpis. Phasellus sit amet nisl in diam congue tristique. Nullam convallis lectus ac nisl iaculis, non posuere ipsum interdum. Vivamus nec justo ac sapien convallis maximus.
             </div>
           </div>
+
+          <div class="container" v-else style="width:100%;">
+            <div class="row">
+              <div class="col-md-12">
+                  <div class="form-outline mb-2">
+                    <input type="email" id="form3Example3" class="form-control"/>
+                    <label class="form-label" for="form3Example3">Email address</label>
+                  </div>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <input type="text" class="form-control"/>
+                <label class="form-label">First name</label>
+              </div>
+
+              <div class="col-md-6">
+                <input type="text" class="form-control"/>
+                <label class="form-label">Last name</label>
+              </div>
+
+              <div class="col-md-4">
+                <datetime v-model="date" type="datetime" use12-hour input-class="form-control">
+
+                </datetime>
+                <label class="form-label">Interview Time 1</label>
+              </div>
+              <div class="col-md-4">
+                <datetime v-model="date" type="datetime" use12-hour input-class="form-control">
+
+                </datetime>
+                <label class="form-label">Interview Time 2</label>
+              </div>
+              <div class="col-md-4">
+                <datetime v-model="date" type="datetime" use12-hour input-class="form-control">
+
+                </datetime>
+                <label class="form-label">Interview Time 3</label>
+              </div>
+
+
+            </div>
+          </div>
+
         </div>
+
+
       </div>
 
     </template>
 
     <template #modal-footer="{ ok, cancel, hide }">
-      <b-button @click="hideDetailModal">close</b-button>
-
+      <div v-if="!isRequestMode">
+        <b-button class="control-btn" @click="setRequestMode(true)">request</b-button>
+        <b-button class="control-btn" @click="hideDetailModal">close</b-button>
+      </div>
+      <div v-else>
+        <b-button class="control-btn" >send</b-button>
+        <b-button class="control-btn" @click="setRequestMode(false)">back</b-button>
+      </div>
     </template>
   </b-modal>
 
@@ -64,7 +123,9 @@
 export default {
   data() {
     return {
-      localDetailShow: false
+      localDetailShow: false,
+      isRequestMode: false,
+      date: '2018-05-12T17:19:06.151Z',
     }
   },
   props : {
@@ -78,7 +139,10 @@ export default {
   methods  : {
     hideDetailModal() {
       this.$emit("hide-detail");
-    }
+    },
+    setRequestMode(isRequestMode) {
+      this.isRequestMode = isRequestMode;
+    },
   }
 }
 </script>
@@ -99,6 +163,11 @@ export default {
   img{
     width: 100%;
   }
+}
+.control-btn{
+  background-color: #05b4d2;
+  border: none;
+  color:white;
 }
 
 </style>
