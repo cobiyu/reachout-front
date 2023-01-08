@@ -1,7 +1,7 @@
 <template>
   <!--https://freefrontend.com/tailwind-profiles/-->
   <b-modal
-      content-class="modal-content bg-[#20354b]"
+      content-class="modal-content profile-detail"
       centered
       size="lg"
       v-model="localDetailShow"
@@ -22,24 +22,26 @@
             </div>
           </div>
 
-          <div class="col-md-6 mt-4">
-            <h2 class="text-white font-bold text-2xl tracking-wide">Jonathan Smith</h2>
+          <div class="col-md-6 profile-text-area">
+            <h2 class="text-white font-bold text-2xl">Jonathan Smith</h2>
             <p class="text-emerald-400 font-semibold mt-2.5">
-              Developer
+              Amazon Web Service
             </p>
-            <div class="mt-3 text-white text-sm">
-              <span class="text-xs mt-2 font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 uppercase last:mr-0 mr-1">
-                apple
-              </span>
-              <span class="text-xs mt-2 font-semibold inline-block py-1 px-2 uppercase rounded-full text-yellow-600 bg-yellow-200 uppercase last:mr-0 mr-1">
-                amazon
-              </span>
-              <span class="text-xs mt-2 font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200 uppercase last:mr-0 mr-1">
-                samsung
-              </span>
-              <span class="text-xs mt-2 font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200 uppercase last:mr-0 mr-1">
-                greenlabs
-              </span>
+            <span class="text-gray-400 text-sm">Developer / 2 years</span>
+            <div class="mt-2 tag-area" style="max-height:90px ">
+              <span>Apple</span>
+              <span>Amazon</span>
+              <span>Amazon</span>
+              <span>Amazon</span>
+              <span>Amazon</span>
+              <span>Amazon</span>
+              <span>Amazon</span>
+              <span>Samsung</span>
+              <span>Datadog</span>
+              <span>Apple</span>
+              <span>Apple</span>
+              <span>Amazon</span>
+              <span>Samsung</span>
             </div>
           </div>
 
@@ -47,10 +49,17 @@
 
 
         <div class="row mt-2">
-          <div class="col-md-12"  v-if="!isRequestMode">
-            <div class="text-white font-bold text-2xl">About me</div>
-            <div class="font-bold mt-2">I am, Jonathan Smith</div>
-            <div >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar magna ut bibendum imperdiet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum id tempor libero. Praesent vel magna eget purus dignissim interdum. Sed efficitur malesuada dui, ac interdum ante scelerisque non. Curabitur quis euismod lorem, vel rutrum ante. Sed non vestibulum turpis. Phasellus sit amet nisl in diam congue tristique. Nullam convallis lectus ac nisl iaculis, non posuere ipsum interdum. Vivamus nec justo ac sapien convallis maximus.
+          <div class="col-md-12 mt-8"  v-if="!isRequestMode">
+            <div class="about-me-area">
+              <div class="text-white font-bold text-2xl about-me-title">
+                <span>About me</span>
+              </div>
+              <div class="mt-2" style="color: #8f9eb2;">
+                I am, Jonathan SmithI am, Jonathan SmithI am, Jonathan SmithI am, Jonathan SmithI am, Jonathan SmithI am, Jonathan SmithI am, Jonathan SmithI am, Jonathan Smith
+              </div>
+              <div style="color: #8f9eb2;">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar magna ut bibendum imperdiet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum id tempor libero. Praesent vel magna eget purus dignissim interdum. Sed efficitur malesuada dui, ac interdum ante scelerisque non. Curabitur quis euismod lorem, vel rutrum ante. Sed non vestibulum turpis. Phasellus sit amet nisl in diam congue tristique. Nullam convallis lectus ac nisl iaculis, non posuere ipsum interdum. Vivamus nec justo ac sapien convallis maximus.
+              </div>
             </div>
           </div>
 
@@ -101,6 +110,57 @@
 
         </div>
 
+        <div class="schedule-area">
+          <div>
+            <span class="text-white font-bold text-2xl">Convenient schedule</span>
+            <span class="text-gray-400 text-sm ml-3">timezone : EST</span>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-4">
+              <div style="display: flex;">
+                <div class="schedule-circle" style="height:25px; width: 30px; background-color: #243873; border-radius: 100px; justify-content: center; display: flex; align-items: center;">
+                  <svg aria-hidden="true" style="height:13px; color: #6c9ae3;"
+                       fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                          clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div class="w-full" style="height:0.1rem; background-color: #374150;display: flex;margin-top:10px;margin-left: 5px;"></div>
+              </div>
+              <div class="possible-datetime">Sunday 20:22:22</div>
+            </div>
+            <div class="col-md-4">
+              <div style="display: flex;">
+                <div class="schedule-circle" style="height:25px; width: 30px; background-color: #243873; border-radius: 100px; justify-content: center; display: flex; align-items: center;">
+                  <svg aria-hidden="true" style="height:13px; color: #6c9ae3;"
+                       fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                          clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div class="w-full" style="height:0.1rem; background-color: #374150;display: flex;margin-top:10px;margin-left: 5px;"></div>
+              </div>
+              <div class="possible-datetime">Sunday 20:22:22</div>
+            </div>
+            <div class="col-md-4">
+              <div style="display: flex;">
+                <div class="schedule-circle" style="height:25px; width: 30px; background-color: #243873; border-radius: 100px; justify-content: center; display: flex; align-items: center;">
+                  <svg aria-hidden="true" style="height:13px; color: #6c9ae3;"
+                       fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                          clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div class="w-full" style="height:0.1rem; background-color: #374150;display: flex;margin-top:10px;margin-left: 5px;"></div>
+              </div>
+              <div class="possible-datetime">Sunday 20:22:22</div>
+            </div>
+          </div>
+        </div>
+
 
       </div>
 
@@ -108,12 +168,12 @@
 
     <template #modal-footer="{ ok, cancel, hide }">
       <div v-if="!isRequestMode">
-        <b-button class="control-btn" @click="setRequestMode(true)">request</b-button>
-        <b-button class="control-btn" @click="hideDetailModal">close</b-button>
+        <b-button class="control-btn" @click="setRequestMode(true)">Request</b-button>
+        <b-button class="control-btn" @click="hideDetailModal">Close</b-button>
       </div>
       <div v-else>
-        <b-button class="control-btn" >send</b-button>
-        <b-button class="control-btn" @click="setRequestMode(false)">back</b-button>
+        <b-button class="control-btn" >Send</b-button>
+        <b-button class="control-btn" @click="setRequestMode(false)">Back</b-button>
       </div>
     </template>
   </b-modal>
@@ -162,12 +222,64 @@ export default {
   text-align: center;
   img{
     width: 100%;
+    border-radius: 10px;
   }
 }
 .control-btn{
   background-color: #05b4d2;
   border: none;
   color:white;
+  font-size: 14px;
+  letter-spacing: 0 !important;
+  text-transform: inherit !important;
+  font-weight: 450;
 }
-
+.profile-text-area{
+  @media (max-width:767px) {
+    margin-top : 10px;
+  }
+}
+.about-me-area{
+  background-color: #1f2a3b;
+  border-radius: 10px;
+  padding: 20px 20px;
+  box-shadow: inset 0 0 0 0.25px #ffffff1a;
+  .about-me-title{
+    border-bottom: solid #293444 3px;
+    padding-bottom:10px;
+  }
+}
+.schedule-area{
+  margin-top:20px;
+  background-color: #1f2a3b;
+  border-radius: 10px;
+  padding: 20px 20px;
+  box-shadow: inset 0 0 0 0.25px #ffffff1a;
+  .schedule-area-title{
+    border-bottom: solid #293444 3px;
+    padding-bottom:10px;
+  }
+  .timezone{
+    font-size:10px;
+  }
+}
+.schedule-circle{
+  height:25px;
+  width: 30px;
+  background-color: #243873;
+  border-radius: 100px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.possible-datetime {
+  text-align: left;
+  margin-top: -5px;
+  font-weight: 800;
+  margin-left:40px;
+  @media (max-width:767px) {
+    text-align: center;
+    margin-left:0px;
+  }
+}
 </style>

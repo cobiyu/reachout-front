@@ -46,7 +46,7 @@ export default {
   },
   data() {
     return {
-      detailShow : false
+      detailShow : true
     }
   },
   methods : {
@@ -61,9 +61,6 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-.modal-backdrop {
-  background-color: #000000a1 !important;
-}
 .w-mentor-full{
   width:100%;
 }

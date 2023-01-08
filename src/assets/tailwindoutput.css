@@ -761,6 +761,11 @@ video {
   border-width: 0px;
 }
 
+.profile-detail {
+  --tw-bg-opacity: 1;
+  background-color: #11192b !important;
+}
+
 .bg-\[\#20354b\] {
   --tw-bg-opacity: 1;
   background-color: rgb(32 53 75 / var(--tw-bg-opacity));

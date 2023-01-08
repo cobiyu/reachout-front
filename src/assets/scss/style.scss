@@ -4,6 +4,22 @@
   letter-spacing: -0.5px!important;
   font-weight:400!important;
 }
+.tag-area {
+  white-space: break-spaces;
+  max-height: 60px;
+  overflow: hidden;
+  span {
+    padding: 3px 12px;
+    color: #a2aab4;
+    background-color: #1c2f4c;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    display: inline-block;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
 
 /*
  * Globals

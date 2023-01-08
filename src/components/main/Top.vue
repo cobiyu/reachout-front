@@ -1,5 +1,5 @@
 <template>
-    <div class="row" style="height:100vh">
+    <div class="row main-section">
       <div class="col-md-12 gx-5 mb-4" style="text-align: center;">
         <img class="mx-auto pb-100" src="img/brand/main.png"/>
         <div class="main-text mb-4 "><strong>Lorem ipsum dolor sit amet consectetur <br/>adipisicing elit</strong></div>
@@ -17,6 +17,12 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+.main-section{
+  height:100vh;
+  @media (max-height: 850px) {
+    height: 850px;
+  }
+}
 .main-text {
   font-size:50px;
 }
@@ -25,7 +31,7 @@ export default {};
 }
 .main-btn{
   background-color: #05b4d2;
-  padding: 18.27px 72.28px;
+  padding: 18.27px 44.28px;
   &:hover {
     background-color: #fff;
     color:#05b4d2;
