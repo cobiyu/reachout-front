@@ -6,6 +6,7 @@ import { Datetime } from 'vue-datetime'
 import './assets/scss/reachout.scss'
 import './assets/tailwindoutput.css';
 import 'vue-datetime/dist/vue-datetime.css'
+import store from './store/store'
 
 
 
@@ -16,5 +17,6 @@ Vue.component('datetime', Datetime);
 Vue.config.productionTip = false;
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount("#app");

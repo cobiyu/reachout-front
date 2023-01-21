@@ -72,7 +72,7 @@
 
 <script>
 import ProfileCard from '@/components/ProfileCard'
-import ProfileDetailModal from '@/components/ProfileDetailModal'
+import ProfileDetailModal from '@/components/modal/ProfileDetailModal'
 
 
 export default {

@@ -2,7 +2,7 @@
     <div class="row main-section">
       <div class="col-md-12 gx-5 mb-4" style="text-align: center;">
         <img class="mx-auto pb-100" src="img/brand/main.png"/>
-        <div class="main-text mb-4 "><strong>Lorem ipsum dolor sit amet consectetur <br/>adipisicing elit</strong></div>
+        <div class="main-text mb-4 "><strong>A Problem Shared Is A Problem Halve</strong></div>
         <div class="main-sub-text mb-4 text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit</div>
         <button class="font-semibold text-2xl  rounded-full shadow-sm main-btn">
           Request Interview →

@@ -6,6 +6,7 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 </head>
 <body class="text-bg-reachout" cz-shortcut-listen="true">
@@ -13,5 +14,20 @@
     <strong>We're sorry but vue-argon-design-system doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
   </noscript>
   <div id="app"></div>
+  <script>
+    // function handleCredentialResponse(response) {
+    //   console.log("Encoded JWT ID token: " + response.credential);
+    // }
+    // window.onload = function () {
+    //   google.accounts.id.initialize({
+    //     client_id: "494741755026-i7veq7qdrjurnlirbt89pi5kl739amjp.apps.googleusercontent.com",
+    //     callback: handleCredentialResponse,
+    //     cancel_on_tap_outside: false,
+    //     context: "use",
+    //     ux_mode: "popup"
+    //   });
+    //   google.accounts.id.prompt(); // also display the One Tap dialog
+    // }
+  </script>
 </body>
 </html>

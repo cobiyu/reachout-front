@@ -27,11 +27,49 @@
 
 import ProfileCard from "@/components/ProfileCard";
 import AppHeader from "@/layout/AppHeader";
+import axios from "./axios";
+import { mapActions, mapState } from "vuex"
 
 export default {
   components: {
     ProfileCard,
     AppHeader,
+  },
+  computed: mapState({
+    selfMember: state => state.member.member
+  }),
+  async mounted() {
+    let self = this;
+    await self.getMemberData();
+
+
+    setTimeout(() => {
+      window.google.accounts.id.initialize({
+        client_id: "494741755026-i7veq7qdrjurnlirbt89pi5kl739amjp.apps.googleusercontent.com",
+        cancel_on_tap_outside: false,
+        context: "use",
+        ux_mode: "popup",
+        callback: (jwt) => {
+          axios.post('http://localhost:8080/sign_in', jwt)
+          .then(() => {
+            self.getMemberData();
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+        },
+      });
+
+      if(!this.selfMember.email){
+        window.google.accounts.id.prompt(); // also display the One Tap dialog
+      }
+    }, 500);
+  },
+  methods : {
+    ...mapActions({
+      getMemberData: 'member/getMemberData'
+    })
   }
 };
 </script>

@@ -5,6 +5,7 @@
       centered
       size="lg"
       v-model="localDetailShow"
+      @show="showDetailModal"
       @hide="hideDetailModal"
       :no-close-on-backdrop="true">
     <template #modal-header="{ close }">
@@ -49,7 +50,7 @@
 
 
         <div class="row mt-2">
-          <div class="col-md-12 mt-8"  v-if="!isRequestMode">
+          <div class="col-md-12 mt-8"  v-show="!isRequestMode">
             <div class="about-me-area">
               <div class="text-white font-bold text-2xl about-me-title">
                 <span>About me</span>
@@ -63,11 +64,11 @@
             </div>
           </div>
 
-          <div class="container" v-else style="width:100%;">
+          <div class="container" v-show="isRequestMode" style="width:100%;">
             <div class="row">
               <div class="col-md-12">
                   <div class="form-outline mb-2">
-                    <input type="email" id="form3Example3" class="form-control"/>
+                    <input type="email" id="form3Example3" class="form-control" v-model="requestForm.email" readonly/>
                     <label class="form-label" for="form3Example3">Email address</label>
                   </div>
               </div>
@@ -76,32 +77,65 @@
             <div class="row">
 
               <div class="col-md-6">
-                <input type="text" class="form-control"/>
-                <label class="form-label">First name</label>
+                <input type="text" class="form-control" v-model="requestForm.givenName"/>
+                <label class="form-label">Given name</label>
               </div>
 
               <div class="col-md-6">
-                <input type="text" class="form-control"/>
-                <label class="form-label">Last name</label>
+                <input type="text" class="form-control" v-model="requestForm.familyName"/>
+                <label class="form-label">Family name</label>
               </div>
 
-              <div class="col-md-4">
-                <datetime v-model="date" type="datetime" use12-hour input-class="form-control">
+              <div class="col-md-3">
+
+                <b-form-select v-model="requestForm.timeZone" :options="options" >
+                </b-form-select>
+                <label class="form-label">My TimeZone</label>
+              </div>
+
+              <div class="col-md-3">
+                <datetime
+                    v-model="requestForm.time1"
+                    type="datetime"
+                    use12-hour
+                    zone="utc"
+                    input-class="form-control">
 
                 </datetime>
                 <label class="form-label">Interview Time 1</label>
               </div>
-              <div class="col-md-4">
-                <datetime v-model="date" type="datetime" use12-hour input-class="form-control">
+              <div class="col-md-3">
+                <datetime
+                    v-model="requestForm.time2"
+                    type="datetime"
+                    use12-hour
+                    zone="utc"
+                    input-class="form-control">
 
                 </datetime>
                 <label class="form-label">Interview Time 2</label>
               </div>
-              <div class="col-md-4">
-                <datetime v-model="date" type="datetime" use12-hour input-class="form-control">
+              <div class="col-md-3">
+                <datetime
+                    v-model="requestForm.time3"
+                    type="datetime"
+                    use12-hour
+                    zone="utc"
+                    input-class="form-control">
 
                 </datetime>
                 <label class="form-label">Interview Time 3</label>
+              </div>
+
+              <div class="col-md-12">
+                <b-form-textarea
+                    id="textarea"
+                    placeholder="Detail"
+                    rows="5"
+                    max-rows="6"
+                    v-model="requestForm.detail"
+                ></b-form-textarea>
+                <label class="form-label">Detail</label>
               </div>
 
 
@@ -113,7 +147,7 @@
         <div class="schedule-area">
           <div>
             <span class="text-white font-bold text-2xl">Convenient schedule</span>
-            <span class="text-gray-400 text-sm ml-3">timezone : EST</span>
+            <span class="text-gray-400 text-sm ml-3">Tutor Timezone : EST</span>
           </div>
           <div class="row mt-2">
             <div class="col-md-4">
@@ -167,12 +201,32 @@
     </template>
 
     <template #modal-footer="{ ok, cancel, hide }">
-      <div v-if="!isRequestMode">
-        <b-button class="control-btn" @click="setRequestMode(true)">Request</b-button>
+      <div v-show="!isRequestMode">
+        <a class="btn btn-block btn-social"
+           v-show="isValidMember"
+           @click="setRequestModeWithMinute(20)">
+          20minute ($144)
+        </a>
+        <a class="btn btn-block btn-social"
+           v-show="isValidMember"
+           @click="setRequestModeWithMinute(30)">
+          30minute ($155)
+        </a>
+        <a class="btn btn-block btn-social"
+           v-show="isValidMember"
+           @click="setRequestModeWithMinute(40)">
+          40minute ($165)
+        </a>
+        <div class="mr-2"
+             v-show="!isValidMember"
+             style="display: inline-block;top: 15px;position: relative;">
+<!--          <div>여기다가 뭘 더 써야하려나..?</div>-->
+          <div id="google-button" style="display: inline-block;"></div>
+        </div>
         <b-button class="control-btn" @click="hideDetailModal">Close</b-button>
       </div>
-      <div v-else>
-        <b-button class="control-btn" >Send</b-button>
+      <div v-show="isRequestMode">
+        <b-button class="control-btn" @click="request">Request {{requestForm.minute}}minutes interview</b-button>
         <b-button class="control-btn" @click="setRequestMode(false)">Back</b-button>
       </div>
     </template>
@@ -180,13 +234,36 @@
 
 </template>
 <script>
+import {mapState} from "vuex";
+import axios from "@/axios";
+
 export default {
   data() {
     return {
       localDetailShow: false,
       isRequestMode: false,
       date: '2018-05-12T17:19:06.151Z',
+      options : [],
+      requestForm : {
+        email : null,
+        familyName : null,
+        givenName : null,
+        detail : null,
+        time1 : null,
+        time2 : null,
+        time3 : null,
+        timeZone : Intl.DateTimeFormat().resolvedOptions().timeZone,
+        minute : null,
+      }
     }
+  },
+  computed: {
+    isValidMember() {
+      return !!this.member.email;
+    },
+    ...mapState({
+      member: state => state.member.member,
+    })
   },
   props : {
     detailShow: Boolean
@@ -196,9 +273,59 @@ export default {
       this.localDetailShow = value;
     }
   },
+  created() {
+    let timeZoneArray = window.Intl.supportedValuesOf('timeZone');
+    timeZoneArray.forEach(timeZone => {
+      this.options.push({
+        value : timeZone,
+        text : timeZone
+      })
+    })
+
+  },
   methods  : {
+    request() {
+      let self = this;
+      axios.post('http://localhost:8080/request', self.requestForm)
+      .then((response)=> {
+        alert('success');
+        self.hideDetailModal();
+        self.isRequestMode = false;
+      })
+      .catch((err) => {
+        alert('success');
+      })
+    },
     hideDetailModal() {
       this.$emit("hide-detail");
+    },
+    showDetailModal() {
+      // this.requestForm.email = this.selfMember.email;
+      // this.requestForm.familyName = this.selfMember.familyName;
+      // this.requestForm.givenName = this.selfMember.givenName;
+      this.requestForm.email = 'test@a.com';
+      this.requestForm.familyName = 'myfirst';
+      this.requestForm.givenName = 'mygiven';
+      this.requestForm.detail = 'Detail Detail Detail Detail Detail Detail ';
+      this.requestForm.time1 = '2013-07-12T05:19:06.151Z';
+      this.requestForm.time2 = '2013-03-01T17:3:06.151Z';
+      this.requestForm.time3 = '2016-12-12T12:51:06.151Z';
+
+
+      this.$nextTick(() => {
+        window.google.accounts.id.renderButton(
+            document.getElementById("google-button"),
+            {
+              theme: "outline",
+              size: "large",
+              text: "continue_with",
+            }
+        );
+      });
+    },
+    setRequestModeWithMinute(minute){
+      this.requestForm.minute = minute;
+      this.isRequestMode = true;
     },
     setRequestMode(isRequestMode) {
       this.isRequestMode = isRequestMode;
@@ -208,6 +335,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.btn-social{
+  font-weight: 450;
+  text-shadow: none;
+  letter-spacing: 0;
+  text-transform: none;
+  display: initial;
+  background-color: white;
+  color: #181616 !important;
+  svg{
+    margin:auto;
+  }
+}
+.btn-social>:first-child{
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:32px;
+  line-height:34px;
+  text-align:center;
+  border-right:1px solid rgba(0,0,0,0.2);
+}
+.fa-google{
+  background-color: white;
+  height: 35px;
+  width: 32px;
+}
 .modal {
   height: 100vh;
   overflow-y: hidden;
@@ -226,6 +380,7 @@ export default {
   }
 }
 .control-btn{
+  padding: 9px 1.25rem;
   background-color: #05b4d2;
   border: none;
   color:white;
@@ -275,7 +430,7 @@ export default {
 .possible-datetime {
   text-align: left;
   margin-top: -5px;
-  font-weight: 800;
+  //font-weight: 400;
   margin-left:40px;
   @media (max-width:767px) {
     text-align: center;

@@ -11,6 +11,9 @@
             <a href="#" class="top-btn opacity-75">
               Register Tutor
             </a>
+            <button v-if="isValidMember" @click="localSignOut()" href="#" class="top-btn opacity-75">
+              Sign out
+            </button>
 
           </div>
 
@@ -18,9 +21,26 @@
     </nav>
 </template>
 <script>
+import {mapActions, mapState} from "vuex";
 
 export default {
-
+  computed: {
+    isValidMember() {
+      return !!this.selfMember.email;
+    },
+    ...mapState({
+      selfMember: state => state.member.member,
+    })
+  },
+  methods : {
+    ...mapActions({
+      signOut: 'member/signOut'
+    }),
+    localSignOut() {
+      this.signOut();
+      window.google.accounts.id.prompt();
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
